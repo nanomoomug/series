@@ -2,6 +2,7 @@
 import os
 import sys
 import dircache
+import getopt
 
 def install():
     print 'Generating configuration file...'
@@ -17,14 +18,20 @@ def install():
     return
 
 def print_help():
-    print 'This is the \'series\' program to view the chapters of a series automatically in order v1.0'
-    print 'Options:'
-    print '-d --directory [path]    Sets the directory where the chapters to be played are.'
-    print '-r --restart      \t Makes the program to start showing the chapters from the beginning again.'
-    print '-i --install      \t (Re)Installs the program, i.e. lets you choose the program to view videos and creates \'$HOME/.series/program.txt\'.'
-    print '-s --set [number] \t Sets the next chapter to be viewed to [number] and exits.'
-    print '-b --back         \t Sets the next chapter to be viewed to the last viewed and exits.'
-    print '-h --help         \t Prints this message.'
+    print '\'series\' program to view the chapters of a series in order v1.0\n' + \
+          'Options:\n' + \
+          '-d --directory [path]    Sets the directory where the chapters to be \n' + \
+          '                         played are.\n' + \
+          '-r --restart             Makes the program to start showing the \n' + \
+          '                         chapters from the beginning again.\n' + \
+          '-i --install             (Re)Installs the program, i.e. lets you \n' + \
+          '                         choose the program to view videos and creates\n' + \
+          '                         \'$HOME/.series/program.txt\'.\n' + \
+          '-s --set [number]        Sets the next chapter to be viewed to \n' + \
+          '                         [number] and exits.\n' + \
+          '-b --back                Sets the next chapter to be viewed to the \n' + \
+          '                         last viewed and exits.\n' + \
+          '-h --help                Prints this message.'
 
 if __name__ == '__main__':
     HOME = os.environ['HOME']
@@ -52,7 +59,7 @@ if __name__ == '__main__':
     lastchaptertxt = directory + '/lastchapter.txt'
 
     for o, a in opts:
-        elif o in ("-h", "--help"):
+        if o in ("-h", "--help"):
             print_help()
             sys.exit()
         elif o in ("-d", "directory"):
@@ -148,7 +155,7 @@ if __name__ == '__main__':
         print program + ' \"' + directory + '/' + videos[chapter] + '\"'
         os.system(program + ' \"' + directory + '/' + videos[chapter] + '\"')
     else:
-    print "No more chapters left :("
+        print "No more chapters left :("
 
 
     
