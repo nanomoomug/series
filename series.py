@@ -3,13 +3,10 @@ import os
 import sys
 import dircache
 
-# First try to load the directory where the video files should be.
 home = os.environ['HOME']
 inst = home + '/.series'
 directorytxt = inst + '/directory.txt'
 
-# This can be called either by being the first time the program is runned or by using '-i'.
-# That is why I define this function here.
 def install():
     print 'Generating configuration file...'
     home = os.environ['HOME']
@@ -102,10 +99,11 @@ if len(sys.argv) > 1:
 
 print "Searching for Next Chapter..."
 
-# Try to load the program that is to be used. First it looks for a 'program.txt' file
-# in the folder where series was called, if not found is searches for '$HOME/.series/program.txt'.
-# If the configuration file '$HOME/.series/program.txt'
-# does not exist it asks the user what program he wants to use and creates this file.
+# Try to load the program that is to be used. First it looks for a
+# 'program.txt' file in the folder where series was called, if not
+# found is searches for '$HOME/.series/program.txt'.  If the
+# configuration file '$HOME/.series/program.txt' does not exist it
+# asks the user what program he wants to use and creates this file.
 if os.path.exists( './program.txt' ):
     program = file( './program.txt' )
 else:
@@ -115,16 +113,12 @@ else:
     program = file( program )
 program = program.readline().strip()
 
-# If lastchapter.txt does not exist it means, that the program is called for the
-# the first time in this folder. This means that the video files have to be lo-
-# cated and written into lastchapter.txt
 if not os.path.exists( directory + '/lastchapter.txt' ):
     newFile =  open(directory + '/lastchapter.txt', 'w' )
     newFile.write( '0' )
     newFile.close()
 
 
-# Try to load a chapter. If no chapter seems to be left, say so to the user.
 content = dircache.listdir(directory)
 
 def suffix( extension ):
@@ -136,11 +130,6 @@ extensions = ['.avi','.mpg','.mpeg','.ogg','.ogm','.mkv']
 videos = []
 for i in extensions:
     videos.extend( filter( suffix(i) , content ) )
-
-#counter = 0;
-#for i in videos:
-#    videos[counter] = i.lower()
-#    counter = counter + 1
 
 videos = sorted(videos)
 
