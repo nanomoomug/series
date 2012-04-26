@@ -67,15 +67,18 @@ if len(sys.argv) > 1:
             DIRECTORY_FILE.write( os.path.abspath(sys.argv[2]) )
         exit()
     elif sys.argv[1] == '-h' or sys.argv[1] == '--help':
-        print 'This is the \'series\' program to view the chapters of a serie automatically in order v1.0'
-        print 'Options:'
-	print '-d --directory [path]    Sets the directory where the chapters to be played are.'
-        print '-r --restart      \t Makes the program to start showing the chapters from the beginning again.'
-        print '-i --install      \t (Re)Installs the program, i.e. lets you choose the program to view videos and creates \'$HOME/.series/program.txt\'.'
-        print '-s --set [number] \t Sets the next chapter to be viewed to [number] and exits.'
-        print '-b --back         \t Sets the next chapter to be viewed to the last viewed and exits.'
-        print '-h --help         \t Prints this message.'
+        print_help()
         exit()
+
+def print_help():
+    print 'This is the \'series\' program to view the chapters of a series automatically in order v1.0'
+    print 'Options:'
+    print '-d --directory [path]    Sets the directory where the chapters to be played are.'
+    print '-r --restart      \t Makes the program to start showing the chapters from the beginning again.'
+    print '-i --install      \t (Re)Installs the program, i.e. lets you choose the program to view videos and creates \'$HOME/.series/program.txt\'.'
+    print '-s --set [number] \t Sets the next chapter to be viewed to [number] and exits.'
+    print '-b --back         \t Sets the next chapter to be viewed to the last viewed and exits.'
+    print '-h --help         \t Prints this message.'
 
 if __name__ == '__main__':
     HOME = os.environ['HOME']
