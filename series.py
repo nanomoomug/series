@@ -102,7 +102,7 @@ if __name__ == '__main__':
             assert False, "unhandled option"
 
     # Play the next chapter.
-    if not os.path.exists(DIRECTORY_FILE):
+    if not os.path.exists(directory):
         videosDirectory = raw_input( 'No directory with videos given. Type directory with the videos:' )
         DIRECTORY_FILE = open(DIRECTORY_FILE, 'w')
         DIRECTORY_FILE.write( os.path.abspath(videosDirectory))
@@ -152,6 +152,3 @@ if __name__ == '__main__':
         os.system(program + ' \"' + directory + '/' + videos[chapter] + '\"')
     else:
         print "No more chapters left :("
-
-
-    
