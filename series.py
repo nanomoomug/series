@@ -16,60 +16,6 @@ def install():
     print 'Preference saved'
     return
 
-if len(sys.argv) > 1:
-    if ( sys.argv[1] == '-r' or sys.argv[1] == '--restart' ) and os.path.exists( './lastchapter.txt' ):
-        if len(sys.argv) > 2:
-            print 'Too many arguments. Use \'--help\' for help.'
-            exit()
-        os.remove(lastchaptertxt)
-    elif sys.argv[1] == '-i' or sys.argv[1] == '--install':
-        if len(sys.argv) > 2:
-            print 'Too many arguments. Use \'--help\' for help.'
-            exit()
-        install()
-        exit()
-    elif sys.argv[1] == '-s' or sys.argv[1] == '--set':
-        if len(sys.argv) != 3:
-            print 'Wrong use of \'-s\' or \'--set\'. Use \'--help\' to see correct use.'
-        else:
-            newFile =  open(lastchaptertxt, 'w' )
-            try:
-                chapter = int(sys.argv[2]) - 1
-            except:
-                print 'The Argument must be a number. Use \'--help\' for help.'
-                exit()
-            newFile.write( str(chapter) )
-            newFile.close()
-        exit()
-    elif sys.argv[1] == '-b' or sys.argv[1] == '--back':
-        if len(sys.argv) > 2:
-            print 'Too many arguments. Use \'--help\' for help.'
-        else:
-            lastchapter = file( lastchaptertxt )
-            chapter = lastchapter.readline()
-            lastchapter.close()
-            chapter = int(chapter)
-            if  chapter > 0:
-                newFile =  open(lastchaptertxt, 'w' )
-                newFile.write( str(chapter - 1) )
-                newFile.close()
-        exit()
-    elif sys.argv[1] == '-d' or sys.argv[1] == '--directory':
-        if len(sys.argv) != 3:
-            print 'Wrong use of \'' + sys.argv[1] + '\'. Use \'--help\' to see correct use.'
-        elif not os.path.exists( sys.argv[2] ):
-            print 'The given path(\'' + sys.argv[2] + '\') with the videos does not seem to exist. Aborting.'
-        else:
-            HOME = os.environ['HOME']
-            INSTALLATION_FOLDER = HOME + '/.series'
-            DIRECTORY_FILE = INSTALLATION_FOLDER + '/directory.txt'
-            DIRECTORY_FILE = open(DIRECTORY_FILE, 'w')
-            DIRECTORY_FILE.write( os.path.abspath(sys.argv[2]) )
-        exit()
-    elif sys.argv[1] == '-h' or sys.argv[1] == '--help':
-        print_help()
-        exit()
-
 def print_help():
     print 'This is the \'series\' program to view the chapters of a series automatically in order v1.0'
     print 'Options:'
@@ -84,23 +30,76 @@ if __name__ == '__main__':
     HOME = os.environ['HOME']
     INSTALLATION_FOLDER = HOME + '/.series'
     DIRECTORY_FILE = INSTALLATION_FOLDER + '/directory.txt'
-    
-    if not os.path.exists(INSTALLATION_FOLDER) or (len(sys.argv) > 1 and (sys.argv[1] == '-i' or sys.argv[1] == '--install')):
-        if len(sys.argv) > 2:
-            print 'Too many arguments. Use \'--help\' for help.'
-            exit()
-        install()
-        exit()
 
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], 'd:ris:bh', ['directory=',
+                                                              'restart',
+                                                              'install','set=',
+                                                              'back','help'])
+    except getopt.GetoptError as err:
+        print(err)
+        print_help()
+        sys.exit(2)
+
+    # This program will only accept two arguments max in any case.
+    if len(sys.argv[1:]) > 2:
+        print "Error, too many Arguments!"
+        print_help()
+        sys.exit(2)
+
+    DIRECTORY_FILE = open(DIRECTORY_FILE, 'r')
+    directory = DIRECTORY_FILE.readline().strip()
+    lastchaptertxt = directory + '/lastchapter.txt'
+
+    for o, a in opts:
+        elif o in ("-h", "--help"):
+            print_help()
+            sys.exit()
+        elif o in ("-d", "directory"):
+            if not os.path.exists( sys.argv[2] ):
+                print 'The given path(\'' + sys.argv[2] + '\') with the videos does not seem to exist. Aborting.'
+            else:
+                HOME = os.environ['HOME']
+                INSTALLATION_FOLDER = HOME + '/.series'
+                DIRECTORY_FILE = INSTALLATION_FOLDER + '/directory.txt'
+                DIRECTORY_FILE = open(DIRECTORY_FILE, 'w')
+                DIRECTORY_FILE.write( os.path.abspath(sys.argv[2]) )
+            exit()
+        elif o in ("-r", "restart"):
+            # This will force the program to restart.
+            os.remove(lastchaptertxt)
+        elif o in ("-i", "install"):
+            install()
+            exit()
+        elif o in ("-s", "set"):
+            newFile =  open(lastchaptertxt, 'w' )
+            try:
+                chapter = int(sys.argv[2]) - 1
+            except:
+                print 'The Argument must be a number. Use \'--help\' for help.'
+                exit()
+            newFile.write( str(chapter) )
+            newFile.close()
+            exit()
+        elif o in ("-b", "back"):
+            lastchapter = file( lastchaptertxt )
+            chapter = lastchapter.readline()
+            lastchapter.close()
+            chapter = int(chapter)
+            if  chapter > 0:
+                newFile =  open(lastchaptertxt, 'w' )
+                newFile.write( str(chapter - 1) )
+                newFile.close()
+            exit()
+        else:
+            assert False, "unhandled option"
+
+    # Play the next chapter.
     if not os.path.exists(DIRECTORY_FILE):
         videosDirectory = raw_input( 'No directory with videos given. Type directory with the videos:' )
         DIRECTORY_FILE = open(DIRECTORY_FILE, 'w')
         DIRECTORY_FILE.write( os.path.abspath(videosDirectory))
 
-    DIRECTORY_FILE = open(DIRECTORY_FILE, 'r')
-    directory = DIRECTORY_FILE.readline().strip()
-    lastchaptertxt = directory + '/lastchapter.txt'
-    
     print "Searching for Next Chapter..."
 
     # Try to load the program that is to be used. First it looks for a
