@@ -3,37 +3,37 @@ import os
 import sys
 import dircache
 
-home = os.environ['HOME']
-inst = home + '/.series'
-directorytxt = inst + '/directory.txt'
+HOME = os.environ['HOME']
+INSTALLATION_FOLDER = HOME + '/.series'
+DIRECTORY_FILE = INSTALLATION_FOLDER + '/directory.txt'
 
 def install():
     print 'Generating configuration file...'
-    home = os.environ['HOME']
-    inst = home + '/.series'
-    programtxt = inst + '/program.txt'
-    if not os.path.exists( inst ):
-        os.mkdir( inst )
+    HOME = os.environ['HOME']
+    INSTALLATION_FOLDER = HOME + '/.series'
+    programtxt = INSTALLATION_FOLDER + '/program.txt'
+    if not os.path.exists( INSTALLATION_FOLDER ):
+        os.mkdir( INSTALLATION_FOLDER )
     programtxt = open( programtxt, 'w' )
     program = raw_input( 'What program should be used to view videos? (Give the name which you call the program with):' )
     programtxt.write( program.strip() )
     print 'Preference saved'
     return
 
-if not os.path.exists(inst) or (len(sys.argv) > 1 and (sys.argv[1] == '-i' or sys.argv[1] == '--install')):
+if not os.path.exists(INSTALLATION_FOLDER) or (len(sys.argv) > 1 and (sys.argv[1] == '-i' or sys.argv[1] == '--install')):
     if len(sys.argv) > 2:
         print 'Too many arguments. Use \'--help\' for help.'
         exit()
     install()
     exit()
 
-if not os.path.exists(directorytxt):
+if not os.path.exists(DIRECTORY_FILE):
     videosDirectory = raw_input( 'No directory with videos given. Type directory with the videos:' )
-    directoryFile = open(directorytxt, 'w')
-    directoryFile.write( os.path.abspath(videosDirectory))
+    DIRECTORY_FILE = open(DIRECTORY_FILE, 'w')
+    DIRECTORY_FILE.write( os.path.abspath(videosDirectory))
 
-directoryFile = open(directorytxt, 'r')
-directory = directoryFile.readline().strip()
+DIRECTORY_FILE = open(DIRECTORY_FILE, 'r')
+directory = DIRECTORY_FILE.readline().strip()
 lastchaptertxt = directory + '/lastchapter.txt'
 
 if len(sys.argv) > 1:
@@ -80,11 +80,11 @@ if len(sys.argv) > 1:
         elif not os.path.exists( sys.argv[2] ):
             print 'The given path(\'' + sys.argv[2] + '\') with the videos does not seem to exist. Aborting.'
         else:
-            home = os.environ['HOME']
-            inst = home + '/.series'
-            directorytxt = inst + '/directory.txt'
-            directoryFile = open(directorytxt, 'w')
-            directoryFile.write( os.path.abspath(sys.argv[2]) )
+            HOME = os.environ['HOME']
+            INSTALLATION_FOLDER = HOME + '/.series'
+            DIRECTORY_FILE = INSTALLATION_FOLDER + '/directory.txt'
+            DIRECTORY_FILE = open(DIRECTORY_FILE, 'w')
+            DIRECTORY_FILE.write( os.path.abspath(sys.argv[2]) )
         exit()
     elif sys.argv[1] == '-h' or sys.argv[1] == '--help':
         print 'This is the \'series\' program to view the chapters of a serie automatically in order v1.0'
