@@ -107,14 +107,14 @@ if __name__ == '__main__':
         DIRECTORY_FILE = open(DIRECTORY_FILE, 'w')
         DIRECTORY_FILE.write( os.path.abspath(videosDirectory))
 
-    print "Searching for Next Chapter..."
+    print 'Loading next chapter in folder \'' + directory + '\'...'
 
     # Try to load the program that is to be used. First it looks for a
     # 'program.txt' file in the folder where series was called, if not
     # found is searches for '$HOME/.series/program.txt'.  If the
     # configuration file '$HOME/.series/program.txt' does not exist it
     # asks the user what program he wants to use and creates this file.
-    if os.path.exists( './program.txt' ):
+    if os.path.exists( directory + '/program.txt' ):
         program = file( './program.txt' )
     else:
         program = os.environ['HOME'] + '/.series/program.txt'
