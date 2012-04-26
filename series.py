@@ -131,15 +131,11 @@ if __name__ == '__main__':
 
     content = dircache.listdir(directory)
 
-    def suffix( extension ):
-        def f(x): return x.endswith(extension)
-        return f
-
     extensions = ['.avi','.mpg','.mpeg','.ogg','.ogm','.mkv']
 
     videos = []
-    for i in extensions:
-        videos.extend( filter( suffix(i) , content ) )
+    for extension in extensions:
+        videos.extend(filter(lambda x: x.endswith(extension), content))
 
     videos = sorted(videos)
 
