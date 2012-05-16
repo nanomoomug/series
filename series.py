@@ -53,8 +53,8 @@ if __name__ == '__main__':
 
     # This program will only accept two arguments max in any case.
     if len(sys.argv[1:]) > 2:
-        print "Error, too many Arguments!"
-        print_help()
+        print 'Error, too many Arguments!'
+        print 'Try option \'-h\' for more information.'
         sys.exit(2)
 
     DIRECTORY_FILE = open(DIRECTORY_FILE, 'r')
