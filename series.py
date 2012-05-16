@@ -86,7 +86,8 @@ if __name__ == '__main__':
             try:
                 chapter = int(sys.argv[2]) - 1
             except:
-                print 'The Argument must be a number. Use \'--help\' for help.'
+                print 'The Argument of \'' + o +'\' must be a number.'
+                print 'Try option \'-h\' for more information.'
                 exit()
             newFile.write( str(chapter) )
             newFile.close()
