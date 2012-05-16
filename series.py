@@ -31,6 +31,8 @@ def print_help():
           '                         [number] and exits.\n' + \
           '-b --back                Sets the next chapter to be viewed to the \n' + \
           '                         last viewed and exits.\n' + \
+          '-c --current             Show current directory from which the chapters \n' + \
+          '                         are currently loaded.\n' + \
           '-h --help                Prints this message.'
 
 if __name__ == '__main__':
@@ -39,10 +41,11 @@ if __name__ == '__main__':
     DIRECTORY_FILE = INSTALLATION_FOLDER + '/directory.txt'
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'd:ris:bh', ['directory=',
-                                                              'restart',
-                                                              'install','set=',
-                                                              'back','help'])
+        opts, args = getopt.getopt(sys.argv[1:], 'd:ris:bch', ['directory=',
+                                                               'restart',
+                                                               'install','set=',
+                                                               'back','current',
+                                                               'help'])
     except getopt.GetoptError as err:
         print(err)
         print_help()
@@ -97,6 +100,9 @@ if __name__ == '__main__':
                 newFile =  open(lastchaptertxt, 'w' )
                 newFile.write( str(chapter - 1) )
                 newFile.close()
+            exit()
+        elif o in ("-c", "current"):
+            print 'Currently playing directory: ' + directory
             exit()
         else:
             assert False, "unhandled option"
