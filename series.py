@@ -65,7 +65,7 @@ if __name__ == '__main__':
         if o in ("-h", "--help"):
             print_help()
             sys.exit()
-        elif o in ("-d", "directory"):
+        elif o in ("-d", "--directory"):
             if not os.path.exists( sys.argv[2] ):
                 print 'The given path(\'' + sys.argv[2] + '\') with the videos does not seem to exist. Aborting.'
             else:
@@ -75,13 +75,13 @@ if __name__ == '__main__':
                 DIRECTORY_FILE = open(DIRECTORY_FILE, 'w')
                 DIRECTORY_FILE.write( os.path.abspath(sys.argv[2]) )
             exit()
-        elif o in ("-r", "restart"):
+        elif o in ("-r", "--restart"):
             # This will force the program to restart.
             os.remove(lastchaptertxt)
-        elif o in ("-i", "install"):
+        elif o in ("-i", "--install"):
             install()
             exit()
-        elif o in ("-s", "set"):
+        elif o in ("-s", "--set"):
             newFile =  open(lastchaptertxt, 'w' )
             try:
                 chapter = int(sys.argv[2]) - 1
@@ -92,7 +92,7 @@ if __name__ == '__main__':
             newFile.write( str(chapter) )
             newFile.close()
             exit()
-        elif o in ("-b", "back"):
+        elif o in ("-b", "--back"):
             lastchapter = file( lastchaptertxt )
             chapter = lastchapter.readline()
             lastchapter.close()
@@ -102,13 +102,11 @@ if __name__ == '__main__':
                 newFile.write( str(chapter - 1) )
                 newFile.close()
             exit()
-        elif o in ("-c", "current"):
+        elif o in ("-c", "--current"):
             print 'Currently playing directory: ' + directory
             exit()
         else:
-            print 'Unrecognized option: ' + o
-            print 'Try option \'-h\' for more information.'
-            exit()
+            assert False, "unhandled option"
 
     # Play the next chapter.
     if not os.path.exists(directory):
