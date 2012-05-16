@@ -106,7 +106,9 @@ if __name__ == '__main__':
             print 'Currently playing directory: ' + directory
             exit()
         else:
-            assert False, "unhandled option"
+            print 'Unrecognized option: ' + o
+            print 'Try option \'-h\' for more information.'
+            exit()
 
     # Play the next chapter.
     if not os.path.exists(directory):
