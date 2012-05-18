@@ -13,6 +13,11 @@ __maintainer__ = "Fernando Sanchez Villaamil"
 __email__ = "nano@moomug.com"
 __status__ = "Completed the desired functionality."
 
+EXTENSIONS = ['.avi','.mpg','.mpeg','.ogg','.ogm','.mkv']
+HOME = os.environ['HOME']
+INSTALLATION_FOLDER = HOME + '/.series'
+DIRECTORY_FILE = INSTALLATION_FOLDER + '/directory.txt'
+
 def install():
     print 'Generating configuration file...'
     HOME = os.environ['HOME']
@@ -45,10 +50,6 @@ def print_help():
           '-h --help                Prints this message.'
 
 if __name__ == '__main__':
-    HOME = os.environ['HOME']
-    INSTALLATION_FOLDER = HOME + '/.series'
-    DIRECTORY_FILE = INSTALLATION_FOLDER + '/directory.txt'
-
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'd:ris:bch', ['directory=',
                                                                'restart',
@@ -148,10 +149,8 @@ if __name__ == '__main__':
 
     content = dircache.listdir(directory)
 
-    extensions = ['.avi','.mpg','.mpeg','.ogg','.ogm','.mkv']
-
     videos = []
-    for extension in extensions:
+    for extension in EXTENSIONS:
         videos.extend(filter(lambda x: x.endswith(extension), content))
 
     videos = sorted(videos)
