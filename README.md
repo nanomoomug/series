@@ -33,6 +33,7 @@ series you want to watch are contained in the directory
 or
 
 > cd <chapter-of-series>
+
 > series -d .
 
 which I find more comfortable. Then by using the command 
