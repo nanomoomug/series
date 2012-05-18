@@ -80,6 +80,17 @@ if __name__ == '__main__':
         print 'Try option \'-h\' for more information.'
         sys.exit(2)
 
+    # If the program was called with one of the arguments that don't
+    # require state, check now and do that.
+    for o, a in opts:
+        if o in ("-h", "--help"):
+            print_help()
+            exit()
+        elif o in ("-v", "--version"):
+            print 'series v' + __version__
+            print 'Copyright (C) Fernando Sanchez Villaamil 2012'
+            exit()
+
     # Check if already installed, if not, start installation.
     if not os.path.exists(INSTALLATION_FOLDER) or \
        not os.path.exists(GLOBAL_PROGRAM):
@@ -123,13 +134,6 @@ if __name__ == '__main__':
     chapter = int(lastchapter.readline())
 
     for o, a in opts:
-        if o in ("-h", "--help"):
-            print_help()
-            exit()
-        elif o in ("-v", "--version"):
-            print 'series v' + __version__
-            print 'Copyright (C) Fernando Sanchez Villaamil 2012'
-            exit()
         elif o in ("-d", "--directory"):
             if not os.path.exists( sys.argv[2] ):
                 print 'The given path(\'' + sys.argv[2] + '\') with the videos does not exist. Aborting.'
