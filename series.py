@@ -33,8 +33,7 @@ def install():
     return
 
 def print_help():
-    print '\'series\' program to view the chapters of a series in order v' + \
-          __version__ + '\n' + \
+    print '\'series\' program to view the chapters of a series in order\n' + \
           'Options:\n' + \
           '-d --directory [path]    Sets the directory where the chapters to be \n' + \
           '                         played are.\n' + \
@@ -51,6 +50,7 @@ def print_help():
           '                         are currently loaded.\n' + \
           '-e --episode             Print the last played episode and the total number of ' + \
           '                         episodes' + \
+          '-v --version             Print the version and the copyright notice.' + \
           '-h --help                Prints this message.'
 
 if __name__ == '__main__':
@@ -60,13 +60,14 @@ if __name__ == '__main__':
     # used after the whole internal state of the program was
     # initialized.
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'd:ris:bceh', ['directory=',
+        opts, args = getopt.getopt(sys.argv[1:], 'd:ris:bcevh', ['directory=',
                                                                 'restart',
                                                                 'install',
                                                                 'set=',
                                                                 'back',
                                                                 'current',
                                                                 'episode',
+                                                                'version',
                                                                 'help'])
     except getopt.GetoptError as err:
         print(err)
@@ -125,7 +126,11 @@ if __name__ == '__main__':
     for o, a in opts:
         if o in ("-h", "--help"):
             print_help()
-            sys.exit()
+            exit()
+        elif o in ("-v", "--version"):
+            print 'series v' + __version__
+            print 'Copyright (C) Fernando Sanchez Villaamil 2012'
+            exit()
         elif o in ("-d", "--directory"):
             if not os.path.exists( sys.argv[2] ):
                 print 'The given path(\'' + sys.argv[2] + '\') with the videos does not exist. Aborting.'
