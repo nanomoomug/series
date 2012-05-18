@@ -143,13 +143,13 @@ if __name__ == '__main__':
             install()
             exit()
         elif o in ("-s", "--set"):
-            newFile =  open(lastchaptertxt, 'w' )
             try:
                 chapter = int(sys.argv[2]) - 1
             except:
                 print 'The Argument of \'' + o +'\' must be a number.'
                 print 'Try option \'-h\' for more information.'
                 exit()
+            newFile =  open(lastchaptertxt, 'w' )
             newFile.write( str(chapter) )
             newFile.close()
             exit()
