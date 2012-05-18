@@ -8,7 +8,7 @@ __author__ = "Fernando Sanchez Villaamil"
 __copyright__ = "Copyright 2012, Fernando Sanchez Villaamil"
 __credits__ = ["Fernando Sanchez Villaamil"]
 __license__ = "MIT"
-__version__ = "1.0"
+__version__ = "1.1beta"
 __maintainer__ = "Fernando Sanchez Villaamil"
 __email__ = "nano@moomug.com"
 __status__ = "Completed the desired functionality."
@@ -33,7 +33,8 @@ def install():
     return
 
 def print_help():
-    print '\'series\' program to view the chapters of a series in order v1.0\n' + \
+    print '\'series\' program to view the chapters of a series in order v' + \
+          __version__ + '\n' + \
           'Options:\n' + \
           '-d --directory [path]    Sets the directory where the chapters to be \n' + \
           '                         played are.\n' + \
