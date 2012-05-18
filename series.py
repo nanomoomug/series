@@ -17,6 +17,7 @@ EXTENSIONS = ['.avi','.mpg','.mpeg','.ogg','.ogm','.mkv']
 HOME = os.environ['HOME']
 INSTALLATION_FOLDER = HOME + '/.series'
 DIRECTORY_FILE = INSTALLATION_FOLDER + '/directory.txt'
+GLOBAL_PROGRAM = INSTALLATION_FOLDER + '/program.txt'
 
 def install():
     print 'Generating configuration file...'
@@ -50,6 +51,8 @@ def print_help():
           '-h --help                Prints this message.'
 
 if __name__ == '__main__':
+
+    #Process arguments.
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'd:ris:bch', ['directory=',
                                                                'restart',
@@ -67,8 +70,21 @@ if __name__ == '__main__':
         print 'Try option \'-h\' for more information.'
         sys.exit(2)
 
-    DIRECTORY_FILE = open(DIRECTORY_FILE, 'r')
-    directory = DIRECTORY_FILE.readline().strip()
+    #Check if already installed, if not, start installation.
+    if not os.path.exists(INSTALLATION_FOLDER) or \
+       not os.path.exists(GLOBAL_PROGRAM):
+        install()
+        exit()
+
+    #Check if a directory was provided.
+    if not os.path.exists(DIRECTORY_FILE):
+        print 'Error: No directory containing episodes was provided.'
+        print 'Call the program with the \'-d\' option to provide one.'
+        print 'Try option \'-h\' for more information.'
+        exit()
+
+    directory_file = open(directory_file, 'r')
+    directory = directory_file.readline().strip()
     lastchaptertxt = directory + '/lastchapter.txt'
 
     for o, a in opts:
@@ -81,9 +97,9 @@ if __name__ == '__main__':
             else:
                 HOME = os.environ['HOME']
                 INSTALLATION_FOLDER = HOME + '/.series'
-                DIRECTORY_FILE = INSTALLATION_FOLDER + '/directory.txt'
-                DIRECTORY_FILE = open(DIRECTORY_FILE, 'w')
-                DIRECTORY_FILE.write( os.path.abspath(sys.argv[2]) )
+                directory_file = INSTALLATION_FOLDER + '/directory.txt'
+                directory_file = open(directory_file, 'w')
+                directory_file.write( os.path.abspath(sys.argv[2]) )
             exit()
         elif o in ("-r", "--restart"):
             # This will force the program to restart.
@@ -121,8 +137,8 @@ if __name__ == '__main__':
     # Play the next chapter.
     if not os.path.exists(directory):
         videosDirectory = raw_input( 'No directory with videos given. Type directory with the videos:' )
-        DIRECTORY_FILE = open(DIRECTORY_FILE, 'w')
-        DIRECTORY_FILE.write( os.path.abspath(videosDirectory))
+        directory_file = open(directory_file, 'w')
+        directory_file.write( os.path.abspath(videosDirectory))
 
     print 'Loading next chapter in folder \'' + directory + '\'...'
 
@@ -132,13 +148,10 @@ if __name__ == '__main__':
     # configuration file '$HOME/.series/program.txt' does not exist it
     # asks the user what program he wants to use and creates this
     # configuration file.
-    if os.path.exists( directory + '/program.txt' ):
-        program = file( './program.txt' )
+    if os.path.exists(directory + '/program.txt'):
+        program = file(directory + '/program.txt')
     else:
-        program = os.environ['HOME'] + '/.series/program.txt'
-        if not os.path.exists( program ):
-            install()
-        program = file( program )
+        program = file(GLOBAL_PROGRAM)
     program = program.readline().strip()
 
     if not os.path.exists( directory + '/lastchapter.txt' ):
