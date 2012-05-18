@@ -96,6 +96,7 @@ if __name__ == '__main__':
     if not os.path.exists(INSTALLATION_FOLDER) or \
        not os.path.exists(GLOBAL_PROGRAM):
         install()
+        exit()
 
     # Check if a directory was provided.
     if not os.path.exists(DIRECTORY_FILE):
