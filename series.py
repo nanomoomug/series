@@ -49,9 +49,9 @@ def print_help():
           '                         last viewed and exits.\n' + \
           '-c --current             Show current directory from which the chapters \n' + \
           '                         are currently loaded.\n' + \
-          '-e --episode             Print the last played episode and the total number of ' + \
-          '                         episodes' + \
-          '-v --version             Print the version and the copyright notice.' + \
+          '-e --episode             Print the last played episode and the total number of \n' + \
+          '                         episodes\n' + \
+          '-v --version             Print the version and the copyright notice.\n' + \
           '-h --help                Prints this message.'
 
 if __name__ == '__main__':
@@ -98,6 +98,18 @@ if __name__ == '__main__':
         install()
         exit()
 
+    directory_file = open(DIRECTORY_FILE, 'r')
+    directory = directory_file.readline().strip()
+
+    for o, a in opts:
+        if o in ("-d", "--directory"):
+            if not os.path.exists( sys.argv[2] ):
+                print 'The given path(\'' + sys.argv[2] + '\') with the videos does not exist. Aborting.'
+            else:
+                directory_file = open(DIRECTORY_FILE, 'w')
+                directory_file.write( os.path.abspath(sys.argv[2]) )
+            exit()
+
     # Check if a directory was provided.
     if not os.path.exists(DIRECTORY_FILE):
         print 'Error: No directory containing episodes was provided.'
@@ -105,8 +117,6 @@ if __name__ == '__main__':
         print MORE_INFO_MSG
         exit()
 
-    directory_file = open(DIRECTORY_FILE, 'r')
-    directory = directory_file.readline().strip()
     lastchaptertxt = directory + '/lastchapter.txt'
 
     # Initialize program's internal state.
@@ -136,13 +146,7 @@ if __name__ == '__main__':
     chapter = int(lastchapter.readline())
 
     for o, a in opts:
-        if o in ("-d", "--directory"):
-            if not os.path.exists( sys.argv[2] ):
-                print 'The given path(\'' + sys.argv[2] + '\') with the videos does not exist. Aborting.'
-            else:
-                directory_file.write( os.path.abspath(sys.argv[2]) )
-            exit()
-        elif o in ("-r", "--restart"):
+        if o in ("-r", "--restart"):
             # This will force the program to restart.
             os.remove(lastchaptertxt)
         elif o in ("-i", "--install"):
