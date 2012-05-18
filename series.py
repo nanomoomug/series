@@ -27,7 +27,7 @@ def install():
     if not os.path.exists( INSTALLATION_FOLDER ):
         os.mkdir( INSTALLATION_FOLDER )
     programtxt = open( programtxt, 'w' )
-    program = raw_input( 'What program should be used to view videos? (Give the name which you call the program with):' )
+    program = raw_input('What program should be used to view videos? (Give the name which you call the program with):')
     programtxt.write( program.strip() )
     print 'Preference saved'
     return
