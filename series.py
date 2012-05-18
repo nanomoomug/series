@@ -120,8 +120,7 @@ if __name__ == '__main__':
     videos = sorted(videos)
 
     lastchapter = file( directory + '/lastchapter.txt' )
-    chapter = lastchapter.readline()
-    chapter = int(chapter)
+    chapter = int(lastchapter.readline())
 
     for o, a in opts:
         if o in ("-h", "--help"):
