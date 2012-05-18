@@ -194,7 +194,7 @@ if __name__ == '__main__':
         newFile.write( str(chapter + 1) )
         newFile.close()
 
-        print program + ' \"' + directory + '/' + videos[chapter] + '\"'
-        os.system(program + ' \"' + directory + '/' + videos[chapter] + '\"')
+        print program + ' '"' + directory + '/' + videos[chapter] + '\''
+        os.system(program + ' \'' + directory + '/' + videos[chapter] + '\'')
     else:
         print "No more chapters left :("
