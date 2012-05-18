@@ -169,7 +169,9 @@ if __name__ == '__main__':
         else:
             assert False, "unhandled option"
 
-    print 'Loading next chapter in folder \'' + directory + '\'...'
+    chapter_out_of = str(chapter) + '/' + str(len(videos))
+    print 'Loading chapter ' + chapter_out_of + ' in folder \'' + directory + \
+          '\'...'
 
     if chapter < len(videos):
         newFile =  open(directory + '/lastchapter.txt', 'w' )
