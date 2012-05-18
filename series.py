@@ -129,12 +129,6 @@ if __name__ == '__main__':
         else:
             assert False, "unhandled option"
 
-    # Play the next chapter.
-    if not os.path.exists(directory):
-        videosDirectory = raw_input( 'No directory with videos given. Type directory with the videos:' )
-        directory_file = open(directory_file, 'w')
-        directory_file.write( os.path.abspath(videosDirectory))
-
     print 'Loading next chapter in folder \'' + directory + '\'...'
 
     # Try to load the program that is to be used. First it looks for a
