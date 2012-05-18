@@ -57,11 +57,14 @@ if __name__ == '__main__':
     # used after the whole internal state of the program was
     # initialized.
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'd:ris:bch', ['directory=',
-                                                               'restart',
-                                                               'install','set=',
-                                                               'back','current',
-                                                               'help'])
+        opts, args = getopt.getopt(sys.argv[1:], 'd:ris:bceh', ['directory=',
+                                                                'restart',
+                                                                'install',
+                                                                'set=',
+                                                                'back',
+                                                                'current',
+                                                                'episode',
+                                                                'help'])
     except getopt.GetoptError as err:
         print(err)
         print_help()
@@ -110,12 +113,10 @@ if __name__ == '__main__':
     videos = []
     for extension in EXTENSIONS:
         videos.extend(filter(lambda x: x.endswith(extension), content))
-
     videos = sorted(videos)
 
     lastchapter = file( directory + '/lastchapter.txt' )
     chapter = lastchapter.readline()
-
     chapter = int(chapter)
 
     for o, a in opts:
@@ -157,6 +158,10 @@ if __name__ == '__main__':
             exit()
         elif o in ("-c", "--current"):
             print 'Currently playing directory: ' + directory
+            exit()
+        elif o in ("-e", "--episode"):
+            print 'Last episode played: ' + \
+                  str(chapter) + '/' + str(len(videos))
             exit()
         else:
             assert False, "unhandled option"
