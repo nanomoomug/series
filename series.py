@@ -135,7 +135,7 @@ if __name__ == '__main__':
     chapter = int(lastchapter.readline())
 
     for o, a in opts:
-        elif o in ("-d", "--directory"):
+        if o in ("-d", "--directory"):
             if not os.path.exists( sys.argv[2] ):
                 print 'The given path(\'' + sys.argv[2] + '\') with the videos does not exist. Aborting.'
             else:
