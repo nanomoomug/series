@@ -18,6 +18,7 @@ HOME = os.environ['HOME']
 INSTALLATION_FOLDER = HOME + '/.series'
 DIRECTORY_FILE = INSTALLATION_FOLDER + '/directory.txt'
 GLOBAL_PROGRAM = INSTALLATION_FOLDER + '/program.txt'
+MORE_INFO_MSG = 'Try option \'-h\' for more information.'
 
 def install():
     print 'Generating configuration file...'
@@ -71,13 +72,13 @@ if __name__ == '__main__':
                                                                 'help'])
     except getopt.GetoptError as err:
         print(err)
-        print 'Try option \'-h\' for more information.'
+        print MORE_INFO_MSG
         sys.exit(2)
 
     # This program will only accept two arguments max in any case.
     if len(sys.argv[1:]) > 2:
         print 'Error, too many Arguments!'
-        print 'Try option \'-h\' for more information.'
+        print MORE_INFO_MSG
         sys.exit(2)
 
     # If the program was called with one of the arguments that don't
@@ -100,7 +101,7 @@ if __name__ == '__main__':
     if not os.path.exists(DIRECTORY_FILE):
         print 'Error: No directory containing episodes was provided.'
         print 'Call the program with option \'-d\' to provide one.'
-        print 'Try option \'-h\' for more information.'
+        print MORE_INFO_MSG
         exit()
 
     directory_file = open(DIRECTORY_FILE, 'r')
@@ -151,7 +152,7 @@ if __name__ == '__main__':
                 chapter = int(sys.argv[2]) - 1
             except:
                 print 'The Argument of \'' + o +'\' must be a number.'
-                print 'Try option \'-h\' for more information.'
+                print MORE_INFO_MSG
                 exit()
             newFile =  open(lastchaptertxt, 'w' )
             newFile.write( str(chapter) )
