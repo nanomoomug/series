@@ -98,9 +98,6 @@ if __name__ == '__main__':
         install()
         exit()
 
-    directory_file = open(DIRECTORY_FILE, 'r')
-    directory = directory_file.readline().strip()
-
     for o, a in opts:
         if o in ("-d", "--directory"):
             if not os.path.exists( sys.argv[2] ):
@@ -116,6 +113,9 @@ if __name__ == '__main__':
         print 'Call the program with option \'-d\' to provide one.'
         print MORE_INFO_MSG
         exit()
+
+    directory_file = open(DIRECTORY_FILE, 'r')
+    directory = directory_file.readline().strip()
 
     lastchaptertxt = directory + '/lastchapter.txt'
 
