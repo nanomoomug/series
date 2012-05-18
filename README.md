@@ -8,12 +8,12 @@ UNIX like environments.
 
 To install it you just have to put it into your $PATH
 environment. E.g., if you are using Ubuntu: Assume you have downloaded
-and unpacked the program to <unpacked-program>. Then you can do the
+and unpacked the program to \<unpacked-program\>. Then you can do the
 following:
 
 > cd /usr/bin
 
-> sudo ln -sv <unpacked-program>/series.py series
+> sudo ln -sv \<unpacked-program\>/series.py series
 
 Now the program can be called with the command 'series'. 
 
@@ -27,13 +27,13 @@ the same as the lexicographical order of video files. Then every time
 the program is called, it will look for the next chapter and play it
 with the specified program. E.g.: Assume that the chapters of the
 series you want to watch are contained in the directory
-<chapter-of-series>. Then you can either do:
+\<chapter-of-series\>. Then you can either do:
 
 > series -d \<chapter-of-series\>
 
 or
 
-> cd <chapter-of-series>
+> cd \<chapter-of-series\>
 
 > series -d .
 
