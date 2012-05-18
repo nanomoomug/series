@@ -71,7 +71,7 @@ if __name__ == '__main__':
                                                                 'help'])
     except getopt.GetoptError as err:
         print(err)
-        print_help()
+        print 'Try option \'-h\' for more information.'
         sys.exit(2)
 
     # This program will only accept two arguments max in any case.
