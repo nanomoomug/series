@@ -78,11 +78,11 @@ if __name__ == '__main__':
     #Check if a directory was provided.
     if not os.path.exists(DIRECTORY_FILE):
         print 'Error: No directory containing episodes was provided.'
-        print 'Call the program with the \'-d\' option to provide one.'
+        print 'Call the program with option \'-d\' to provide one.'
         print 'Try option \'-h\' for more information.'
         exit()
 
-    directory_file = open(directory_file, 'r')
+    directory_file = open(DIRECTORY_FILE, 'r')
     directory = directory_file.readline().strip()
     lastchaptertxt = directory + '/lastchapter.txt'
 
@@ -94,10 +94,6 @@ if __name__ == '__main__':
             if not os.path.exists( sys.argv[2] ):
                 print 'The given path(\'' + sys.argv[2] + '\') with the videos does not seem to exist. Aborting.'
             else:
-                HOME = os.environ['HOME']
-                INSTALLATION_FOLDER = HOME + '/.series'
-                directory_file = INSTALLATION_FOLDER + '/directory.txt'
-                directory_file = open(directory_file, 'w')
                 directory_file.write( os.path.abspath(sys.argv[2]) )
             exit()
         elif o in ("-r", "--restart"):
