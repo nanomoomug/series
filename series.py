@@ -52,7 +52,10 @@ def print_help():
 
 if __name__ == '__main__':
 
-    #Process arguments.
+    # Process arguments. This will produce an error already on wrongly
+    # formated arguments even though the arguments are not actually
+    # used after the whole internal state of the program was
+    # initialized.
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'd:ris:bch', ['directory=',
                                                                'restart',
@@ -70,12 +73,12 @@ if __name__ == '__main__':
         print 'Try option \'-h\' for more information.'
         sys.exit(2)
 
-    #Check if already installed, if not, start installation.
+    # Check if already installed, if not, start installation.
     if not os.path.exists(INSTALLATION_FOLDER) or \
        not os.path.exists(GLOBAL_PROGRAM):
         install()
 
-    #Check if a directory was provided.
+    # Check if a directory was provided.
     if not os.path.exists(DIRECTORY_FILE):
         print 'Error: No directory containing episodes was provided.'
         print 'Call the program with option \'-d\' to provide one.'
@@ -85,6 +88,35 @@ if __name__ == '__main__':
     directory_file = open(DIRECTORY_FILE, 'r')
     directory = directory_file.readline().strip()
     lastchaptertxt = directory + '/lastchapter.txt'
+
+    # Initialize program's internal state.
+    
+    # Try to load the program that is to be used. First it looks for a
+    # 'program.txt' file in the folder where series was called. If not
+    # found, it searches for '$HOME/.series/program.txt'.
+    if os.path.exists(directory + '/program.txt'):
+        program = file(directory + '/program.txt')
+    else:
+        program = file(GLOBAL_PROGRAM)
+    program = program.readline().strip()
+
+    if not os.path.exists( directory + '/lastchapter.txt' ):
+        newFile =  open(directory + '/lastchapter.txt', 'w' )
+        newFile.write( '0' )
+        newFile.close()
+
+    content = dircache.listdir(directory)
+
+    videos = []
+    for extension in EXTENSIONS:
+        videos.extend(filter(lambda x: x.endswith(extension), content))
+
+    videos = sorted(videos)
+
+    lastchapter = file( directory + '/lastchapter.txt' )
+    chapter = lastchapter.readline()
+
+    chapter = int(chapter)
 
     for o, a in opts:
         if o in ("-h", "--help"):
@@ -131,36 +163,6 @@ if __name__ == '__main__':
 
     print 'Loading next chapter in folder \'' + directory + '\'...'
 
-    # Try to load the program that is to be used. First it looks for a
-    # 'program.txt' file in the folder where series was called. If not
-    # foun, it searches for '$HOME/.series/program.txt'.  If the
-    # configuration file '$HOME/.series/program.txt' does not exist it
-    # asks the user what program he wants to use and creates this
-    # configuration file.
-    if os.path.exists(directory + '/program.txt'):
-        program = file(directory + '/program.txt')
-    else:
-        program = file(GLOBAL_PROGRAM)
-    program = program.readline().strip()
-
-    if not os.path.exists( directory + '/lastchapter.txt' ):
-        newFile =  open(directory + '/lastchapter.txt', 'w' )
-        newFile.write( '0' )
-        newFile.close()
-
-
-    content = dircache.listdir(directory)
-
-    videos = []
-    for extension in EXTENSIONS:
-        videos.extend(filter(lambda x: x.endswith(extension), content))
-
-    videos = sorted(videos)
-
-    lastchapter = file( directory + '/lastchapter.txt' )
-    chapter = lastchapter.readline()
-
-    chapter = int(chapter)
     if chapter < len(videos):
         newFile =  open(directory + '/lastchapter.txt', 'w' )
         newFile.write( str(chapter + 1) )
