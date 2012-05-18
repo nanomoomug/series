@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
     # Process arguments. This will produce an error already on wrongly
     # formated arguments even though the arguments are not actually
-    # used after the whole internal state of the program was
+    # used until after the whole internal state of the program was
     # initialized.
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'd:ris:bcevh', ['directory=',
