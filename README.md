@@ -44,3 +44,5 @@ which I find more comfortable. Then by using the command
 in any directory, the next episode will be played.
 
 For more options call it with '-h'.
+
+For any questions contact me at nano@moomug.com.
