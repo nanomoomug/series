@@ -92,7 +92,7 @@ if __name__ == '__main__':
             sys.exit()
         elif o in ("-d", "--directory"):
             if not os.path.exists( sys.argv[2] ):
-                print 'The given path(\'' + sys.argv[2] + '\') with the videos does not seem to exist. Aborting.'
+                print 'The given path(\'' + sys.argv[2] + '\') with the videos does not exist. Aborting.'
             else:
                 directory_file.write( os.path.abspath(sys.argv[2]) )
             exit()
