@@ -49,6 +49,8 @@ def print_help():
           '                         last viewed and exits.\n' + \
           '-c --current             Show current directory from which the chapters \n' + \
           '                         are currently loaded.\n' + \
+          '-e --episode             Print the last played episode and the total number of ' + \
+          '                         episodes' + \
           '-h --help                Prints this message.'
 
 if __name__ == '__main__':
