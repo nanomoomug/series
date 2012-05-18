@@ -190,11 +190,11 @@ if __name__ == '__main__':
           '\'...'
 
     if chapter < len(videos):
-        newFile =  open(directory + '/lastchapter.txt', 'w' )
+        newFile =  open(lastchaptertxt, 'w' )
         newFile.write( str(chapter + 1) )
         newFile.close()
 
-        print program + ' '"' + directory + '/' + videos[chapter] + '\''
+        print program + ' \'' + directory + '/' + videos[chapter] + '\''
         os.system(program + ' \'' + directory + '/' + videos[chapter] + '\'')
     else:
         print "No more chapters left :("
