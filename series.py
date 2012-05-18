@@ -132,7 +132,7 @@ if __name__ == '__main__':
 
     if not os.path.exists( directory + '/lastchapter.txt' ):
         newFile =  open(directory + '/lastchapter.txt', 'w' )
-        newFile.write( '0' )
+        newFile.write('0')
         newFile.close()
 
     content = dircache.listdir(directory)
@@ -147,8 +147,10 @@ if __name__ == '__main__':
 
     for o, a in opts:
         if o in ("-r", "--restart"):
-            # This will force the program to restart.
-            os.remove(lastchaptertxt)
+            newFile =  open(lastchaptertxt, 'w' )
+            newFile.write('0')
+            newFile.close()
+            chapter = 0
         elif o in ("-i", "--install"):
             install()
             exit()
