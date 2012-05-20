@@ -185,16 +185,18 @@ if __name__ == '__main__':
         else:
             assert False, "unhandled option"
 
+    if chapter >= len(videos):
+        print 'No more chapters left in \'' + directory +'\' :('
+        exit()
+    
     chapter_out_of = str(chapter) + '/' + str(len(videos))
     print 'Loading chapter ' + chapter_out_of + ' in folder \'' + directory + \
           '\'...'
+    
+    newFile =  open(lastchaptertxt, 'w' )
+    newFile.write( str(chapter + 1) )
+    newFile.close()
 
-    if chapter < len(videos):
-        newFile =  open(lastchaptertxt, 'w' )
-        newFile.write( str(chapter + 1) )
-        newFile.close()
+    print program + ' \'' + directory + '/' + videos[chapter] + '\''
+    os.system(program + ' \'' + directory + '/' + videos[chapter] + '\'')
 
-        print program + ' \'' + directory + '/' + videos[chapter] + '\''
-        os.system(program + ' \'' + directory + '/' + videos[chapter] + '\'')
-    else:
-        print "No more chapters left :("
