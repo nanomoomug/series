@@ -28,7 +28,8 @@ def install():
     if not os.path.exists( INSTALLATION_FOLDER ):
         os.mkdir( INSTALLATION_FOLDER )
     programtxt = open( programtxt, 'w' )
-    program = raw_input('What program should be used to view videos? (Give the name which you call the program with):')
+    program = raw_input('What program should be used to view videos? (Give ' + \
+                        'the name which you call the program with):')
     programtxt.write( program.strip() )
     print 'Preference saved'
     return
@@ -55,7 +56,6 @@ def print_help():
           '-h --help                Prints this message.'
 
 if __name__ == '__main__':
-
     # Process arguments. This will produce an error already on wrongly
     # formated arguments even though the arguments are not actually
     # used until after the whole internal state of the program was
@@ -101,7 +101,8 @@ if __name__ == '__main__':
     for o, a in opts:
         if o in ("-d", "--directory"):
             if not os.path.exists( sys.argv[2] ):
-                print 'The given path(\'' + sys.argv[2] + '\') with the videos does not exist. Aborting.'
+                print 'The given path(\'' + sys.argv[2] + '\') with the ' + \
+                      'videos does not exist. Aborting.'
             else:
                 directory_file = open(DIRECTORY_FILE, 'w')
                 directory_file.write( os.path.abspath(sys.argv[2]) )
