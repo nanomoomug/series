@@ -190,7 +190,7 @@ if __name__ == '__main__':
         print 'No more chapters left in \'' + directory +'\' :('
         exit()
     
-    chapter_out_of = str(chapter) + '/' + str(len(videos))
+    chapter_out_of = str(chapter + 1) + '/' + str(len(videos))
     print 'Loading chapter ' + chapter_out_of + ' in folder \'' + directory + \
           '\'...'
     
