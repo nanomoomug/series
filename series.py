@@ -198,6 +198,10 @@ if __name__ == '__main__':
     newFile.write( str(chapter + 1) )
     newFile.close()
 
+    # Escape single quotes in the folder or video file name.
+    directory = directory.replace('\'','\'"\'"\'')
+    videos[chapter] = videos[chapter].replace('\'','\'"\'"\'')
+    
     print program + ' \'' + directory + '/' + videos[chapter] + '\''
     os.system(program + ' \'' + directory + '/' + videos[chapter] + '\'')
 
