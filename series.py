@@ -177,7 +177,7 @@ if __name__ == '__main__':
                 newFile.close()
             exit()
         elif o in ("-c", "--current"):
-            print 'Currently playing directory: ' + directory
+            print directory
             exit()
         elif o in ("-e", "--episode"):
             print 'Last episode played: ' + \
