@@ -13,7 +13,7 @@ __maintainer__ = "Fernando Sanchez Villaamil"
 __email__ = "nano@moomug.com"
 __status__ = "Completed the desired functionality."
 
-EXTENSIONS = ['.avi','.mpg','.mpeg','.ogg','.ogm','.mkv']
+EXTENSIONS = ['.avi','.mpg','.mpeg','.ogg','.ogm','.mkv','.mp4']
 HOME = os.environ['HOME']
 INSTALLATION_FOLDER = HOME + '/.series'
 DIRECTORY_FILE = INSTALLATION_FOLDER + '/directory.txt'
