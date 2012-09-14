@@ -126,10 +126,10 @@ if __name__ == '__main__':
     # 'program.txt' file in the folder where series was called. If not
     # found, it searches for '$HOME/.series/program.txt'.
     if os.path.exists(directory + '/program.txt'):
-        program = file(directory + '/program.txt')
+        programtxt = file(directory + '/program.txt')
     else:
-        program = file(GLOBAL_PROGRAM)
-    program = program.readline().strip()
+        programtxt = file(GLOBAL_PROGRAM)
+    program = programtxt.readline().strip()
 
     if not os.path.exists( directory + '/lastchapter.txt' ):
         newFile =  open(directory + '/lastchapter.txt', 'w' )
